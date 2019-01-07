@@ -7,6 +7,34 @@ $(document).ready(function() {
     var losses = 0;
     var userScore = 0;
 
+    //reset function
+    function reset(){
+        userScore = 0;
+        $("#userScore").html("<div>" + userScore + "</div>");
+        targetScore = Math.floor(Math.random() * (121 - 19)) + 19;
+        $("#targetScore").html("<div> Target Score: " + targetScore + "</div>");
+        $("#wins").html("<div> Wins: " + wins + "</div>");
+        $("#losses").html("<div> Losses: " + losses + "</div>");
+    }
+
+    //helper function to handle the if statement for each click event
+    function clickCondition(){
+        //if the userScore equals the target score the user "wins", update the win count, reset the game
+        if (userScore === targetScore){
+
+            
+            $("#winOrLose").html("You have Won!");
+            wins += 1;
+            reset();
+
+            //if the userScore becomes greater than the target score, the user "loses" the game, update loses, reset game
+        } else if (userScore > targetScore){
+            $("#winOrLose").html("You have Lost!");
+            losses +=1;
+            reset();
+        };
+    }
+
     //display the targetScore
     $("#targetScore").html("<div> Target Score: " + targetScore + "</div>");
 
@@ -40,6 +68,8 @@ $(document).ready(function() {
         userScore += redGemValue;
         $("#userScore").html("<div>" + userScore + "</div>");
 
+        clickCondition();
+
     });
 
     $("#blueGem").on("click", function(){
@@ -47,6 +77,8 @@ $(document).ready(function() {
         blueGemValue = parseInt(blueGemValue);
         userScore += blueGemValue;
         $("#userScore").html("<div>" + userScore + "</div>");
+
+        clickCondition();
 
     });
 
@@ -56,6 +88,8 @@ $(document).ready(function() {
         userScore += redGemValue;
         $("#userScore").html("<div>" + userScore + "</div>");
 
+        clickCondition();
+
     });
 
     $("#darkRedGem").on("click", function(){
@@ -64,9 +98,8 @@ $(document).ready(function() {
         userScore += darkRedGemValue;
         $("#userScore").html("<div>" + userScore + "</div>");
 
+        clickCondition();
+
     });
-
-    //if the userScore equals the target score the user "wins", update the win count, reset the game
-
-    //if the userScore becomes greater than the target score, the user "loses" the game, update loses, reset game
+    
 });
